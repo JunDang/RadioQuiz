@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		606760D7E4DD9EB81AF9092B /* Pods_RadioQuiz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF276C1E20529E758C98E0F /* Pods_RadioQuiz.framework */; };
+		A56D15212193442D00B0C104 /* QuizTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56D15202193442D00B0C104 /* QuizTableViewController.swift */; };
+		A56D152C21948AFE00B0C104 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56D152B21948AFE00B0C104 /* AnswerCell.swift */; };
+		A56D152E21948EAD00B0C104 /* QuestionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56D152D21948EAD00B0C104 /* QuestionHeader.swift */; };
 		A5CAAAF3219226E40060251E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CAAAF2219226E40060251E /* AppDelegate.swift */; };
 		A5CAAAF5219226E40060251E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CAAAF4219226E40060251E /* ViewController.swift */; };
 		A5CAAAF8219226E40060251E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5CAAAF6219226E40060251E /* Main.storyboard */; };
 		A5CAAAFA219226F90060251E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5CAAAF9219226F90060251E /* Assets.xcassets */; };
 		A5CAAAFD219226F90060251E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5CAAAFB219226F90060251E /* LaunchScreen.storyboard */; };
 		A5CAAB08219226FA0060251E /* RadioQuizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CAAB07219226FA0060251E /* RadioQuizTests.swift */; };
+		A5CAAB14219228430060251E /* CoverPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CAAB13219228430060251E /* CoverPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +31,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E48280267C60480602E98E1 /* Pods-RadioQuiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RadioQuiz.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RadioQuiz/Pods-RadioQuiz.debug.xcconfig"; sourceTree = "<group>"; };
+		47E50C8846C6578BE8C2822A /* Pods-RadioQuiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RadioQuiz.release.xcconfig"; path = "Pods/Target Support Files/Pods-RadioQuiz/Pods-RadioQuiz.release.xcconfig"; sourceTree = "<group>"; };
+		A56D15202193442D00B0C104 /* QuizTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTableViewController.swift; sourceTree = "<group>"; };
+		A56D152B21948AFE00B0C104 /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
+		A56D152D21948EAD00B0C104 /* QuestionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionHeader.swift; sourceTree = "<group>"; };
 		A5CAAAEF219226E40060251E /* RadioQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RadioQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5CAAAF2219226E40060251E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5CAAAF4219226E40060251E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +46,8 @@
 		A5CAAB03219226FA0060251E /* RadioQuizTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RadioQuizTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5CAAB07219226FA0060251E /* RadioQuizTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioQuizTests.swift; sourceTree = "<group>"; };
 		A5CAAB09219226FA0060251E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5CAAB13219228430060251E /* CoverPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPageViewController.swift; sourceTree = "<group>"; };
+		DFF276C1E20529E758C98E0F /* Pods_RadioQuiz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RadioQuiz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				606760D7E4DD9EB81AF9092B /* Pods_RadioQuiz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +69,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		292FBCACE5DDA35057A996DA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3E48280267C60480602E98E1 /* Pods-RadioQuiz.debug.xcconfig */,
+				47E50C8846C6578BE8C2822A /* Pods-RadioQuiz.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9799B7EBB843ABAC1C0B20BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DFF276C1E20529E758C98E0F /* Pods_RadioQuiz.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A56D152221934B2D00B0C104 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A56D152B21948AFE00B0C104 /* AnswerCell.swift */,
+				A56D152D21948EAD00B0C104 /* QuestionHeader.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A56D152F2195125D00B0C104 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A5CAAAE6219226E40060251E = {
 			isa = PBXGroup;
 			children = (
 				A5CAAAF1219226E40060251E /* RadioQuiz */,
 				A5CAAB06219226FA0060251E /* RadioQuizTests */,
 				A5CAAAF0219226E40060251E /* Products */,
+				292FBCACE5DDA35057A996DA /* Pods */,
+				9799B7EBB843ABAC1C0B20BF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,6 +125,9 @@
 		A5CAAAF1219226E40060251E /* RadioQuiz */ = {
 			isa = PBXGroup;
 			children = (
+				A56D152F2195125D00B0C104 /* Extensions */,
+				A56D152221934B2D00B0C104 /* Views */,
+				A5CAAB12219228220060251E /* View Controllers */,
 				A5CAAAF2219226E40060251E /* AppDelegate.swift */,
 				A5CAAAF4219226E40060251E /* ViewController.swift */,
 				A5CAAAF6219226E40060251E /* Main.storyboard */,
@@ -96,6 +147,15 @@
 			path = RadioQuizTests;
 			sourceTree = "<group>";
 		};
+		A5CAAB12219228220060251E /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A5CAAB13219228430060251E /* CoverPageViewController.swift */,
+				A56D15202193442D00B0C104 /* QuizTableViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -103,9 +163,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A5CAAB0C219226FA0060251E /* Build configuration list for PBXNativeTarget "RadioQuiz" */;
 			buildPhases = (
+				DBBD66FEF54781F905DD2CE1 /* [CP] Check Pods Manifest.lock */,
 				A5CAAAEB219226E40060251E /* Sources */,
 				A5CAAAEC219226E40060251E /* Frameworks */,
 				A5CAAAED219226E40060251E /* Resources */,
+				897D3B02C53DC4174B00BBE2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -192,12 +254,55 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		897D3B02C53DC4174B00BBE2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-RadioQuiz/Pods-RadioQuiz-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Cartography/Cartography.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cartography.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RadioQuiz/Pods-RadioQuiz-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DBBD66FEF54781F905DD2CE1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RadioQuiz-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A5CAAAEB219226E40060251E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A56D15212193442D00B0C104 /* QuizTableViewController.swift in Sources */,
+				A5CAAB14219228430060251E /* CoverPageViewController.swift in Sources */,
+				A56D152E21948EAD00B0C104 /* QuestionHeader.swift in Sources */,
 				A5CAAAF5219226E40060251E /* ViewController.swift in Sources */,
+				A56D152C21948AFE00B0C104 /* AnswerCell.swift in Sources */,
 				A5CAAAF3219226E40060251E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,6 +463,7 @@
 		};
 		A5CAAB0D219226FA0060251E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E48280267C60480602E98E1 /* Pods-RadioQuiz.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -376,6 +482,7 @@
 		};
 		A5CAAB0E219226FA0060251E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 47E50C8846C6578BE8C2822A /* Pods-RadioQuiz.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

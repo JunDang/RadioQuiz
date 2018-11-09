@@ -13,9 +13,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let vc = CoverPageViewController()
+        let viewController = UINavigationController(rootViewController: vc)
+        UINavigationBar.appearance().barTintColor = UIColor.lightBlue
+        UINavigationBar.appearance().titleTextAttributes =
+            [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Bold", size: 19)!]
+        let mainWindow = UIWindow(frame: UIScreen.main.bounds)
+        
+        mainWindow.backgroundColor = UIColor.white
+        mainWindow.rootViewController = viewController
+        mainWindow.makeKeyAndVisible()
+        window = mainWindow
         return true
     }
 
