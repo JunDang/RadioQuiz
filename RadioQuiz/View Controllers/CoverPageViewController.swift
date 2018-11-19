@@ -23,7 +23,7 @@ class CoverPageViewController: UIViewController {
         style()
         render()
         navigationController?.navigationBar.tintColor = UIColor.white
-        QuizDB.instance
+       // QuizDB.instance
    }
    
     
@@ -37,20 +37,14 @@ class CoverPageViewController: UIViewController {
     }
     
     @objc func bButtonPressed(sender: UIButton) {
-        let random_100_ids_Result:Result<[String], Error> = QuizDB.instance.Query_100_Random_IDs("basic")
         let quizTableViewController = QuizTableViewController()
-        switch random_100_ids_Result {
-            case .Success(let random_100_ids):
-               quizTableViewController.random_100_ids = random_100_ids
-            case .Failure(let error):
-                print("display the error")
-            }
-        
+        quizTableViewController.questionTypes = "basic"
         navigationController?.pushViewController(quizTableViewController, animated: true)
     }
     
     @objc func aButtonPressed(sender: UIButton) {
         let quizTableViewController = QuizTableViewController()
+        quizTableViewController.questionTypes = "advanced"
         navigationController?.pushViewController(quizTableViewController, animated: true)
     }
 }

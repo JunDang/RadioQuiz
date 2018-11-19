@@ -16,6 +16,7 @@
 		A56D153D219E044700B0C104 /* quizDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56D153C219E044700B0C104 /* quizDB.swift */; };
 		A56D154221A069DE00B0C104 /* Array+Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56D154121A069DE00B0C104 /* Array+Sample.swift */; };
 		A56D154421A22D2E00B0C104 /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56D154321A22D2E00B0C104 /* QuestionCell.swift */; };
+		A56D154821A31DC300B0C104 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56D154721A31DC300B0C104 /* Message.swift */; };
 		A5CAAAF3219226E40060251E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CAAAF2219226E40060251E /* AppDelegate.swift */; };
 		A5CAAAF5219226E40060251E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CAAAF4219226E40060251E /* ViewController.swift */; };
 		A5CAAAF8219226E40060251E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5CAAAF6219226E40060251E /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 		A56D153C219E044700B0C104 /* quizDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quizDB.swift; sourceTree = "<group>"; };
 		A56D154121A069DE00B0C104 /* Array+Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Sample.swift"; sourceTree = "<group>"; };
 		A56D154321A22D2E00B0C104 /* QuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCell.swift; sourceTree = "<group>"; };
+		A56D154721A31DC300B0C104 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		A5CAAAEF219226E40060251E /* RadioQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RadioQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5CAAAF2219226E40060251E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5CAAAF4219226E40060251E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				A5CAAAFB219226F90060251E /* LaunchScreen.storyboard */,
 				A5CAAAFE219226F90060251E /* Info.plist */,
 				A56D153C219E044700B0C104 /* quizDB.swift */,
+				A56D154721A31DC300B0C104 /* Message.swift */,
 			);
 			path = RadioQuiz;
 			sourceTree = "<group>";
@@ -303,11 +306,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-RadioQuiz/Pods-RadioQuiz-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Cartography/Cartography.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cartography.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -348,6 +353,7 @@
 				A56D152C21948AFE00B0C104 /* AnswerCell.swift in Sources */,
 				A56D154421A22D2E00B0C104 /* QuestionCell.swift in Sources */,
 				A56D154221A069DE00B0C104 /* Array+Sample.swift in Sources */,
+				A56D154821A31DC300B0C104 /* Message.swift in Sources */,
 				A56D153B219DFF6600B0C104 /* ViewModel.swift in Sources */,
 				A5CAAAF3219226E40060251E /* AppDelegate.swift in Sources */,
 			);

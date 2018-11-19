@@ -11,6 +11,7 @@ import Cartography
 
 class AnswerCell: UITableViewCell {
     let answerLbl = UILabel()
+    let markImageView = UIImageView(frame: CGRect.zero)
     private var didSetupConstraints = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -47,6 +48,7 @@ private extension AnswerCell {
     
     func setup() {
         contentView.addSubview(answerLbl)
+        contentView.addSubview(markImageView)
     }
     
     func layoutView() {
@@ -57,13 +59,19 @@ private extension AnswerCell {
             $0.left == $0.superview!.left + 2
             $0.right == $0.superview!.right - 2
         }
+        constrain(markImageView) {
+            $0.right == $0.superview!.right - 30
+            $0.centerY == $0.superview!.centerY
+            $0.width == 55
+            $0.height == 55
+        }
     }
     
     func setStyle() {
         self.backgroundColor = UIColor.white
         answerLbl.textColor = UIColor.black
         answerLbl.backgroundColor = UIColor.white
-        answerLbl.font = UIFont(name: "HelveticaNeue", size: 25)
+        answerLbl.font = UIFont(name: "HelveticaNeue", size: 22)
         answerLbl.numberOfLines = 10
         answerLbl.lineBreakMode = NSLineBreakMode.byWordWrapping
         answerLbl.sizeToFit()

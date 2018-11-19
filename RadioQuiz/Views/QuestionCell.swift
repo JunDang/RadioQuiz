@@ -10,7 +10,7 @@ import UIKit
 import Cartography
 
 class QuestionCell: UITableViewCell  {
-    private let questionLbl = UILabel()
+    let questionLbl = UILabel()
     private var didSetupConstraints = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -63,8 +63,8 @@ private extension QuestionCell {
         self.backgroundColor = UIColor.white
         questionLbl.textColor = UIColor.black
         questionLbl.backgroundColor = UIColor.white
-        questionLbl.font = UIFont(name: "HelveticaNeue", size: 25)
-        questionLbl.numberOfLines = 5
+        questionLbl.font = UIFont(name: "HelveticaNeue-Bold", size: 25)
+        questionLbl.numberOfLines = 10
         questionLbl.lineBreakMode = NSLineBreakMode.byWordWrapping
         questionLbl.sizeToFit()
     }
