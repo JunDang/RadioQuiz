@@ -1,16 +1,16 @@
 //
-//  AnswerCell.swift
+//  QuestionCell.swift
 //  RadioQuiz
 //
-//  Created by Jun Dang on 2018-11-08.
+//  Created by Jun Dang on 2018-11-18.
 //  Copyright © 2018 Jun Dang. All rights reserved.
 //
 
 import UIKit
 import Cartography
 
-class AnswerCell: UITableViewCell {
-    let answerLbl = UILabel()
+class QuestionCell: UITableViewCell  {
+    private let questionLbl = UILabel()
     private var didSetupConstraints = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -19,7 +19,7 @@ class AnswerCell: UITableViewCell {
         setup()
         setStyle()
         layoutView()
-      
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,15 +43,15 @@ class AnswerCell: UITableViewCell {
     
 }
 
-private extension AnswerCell {
+private extension QuestionCell {
     
     func setup() {
-        contentView.addSubview(answerLbl)
+        contentView.addSubview(questionLbl)
     }
     
     func layoutView() {
         
-        constrain(answerLbl) {
+        constrain(questionLbl) {
             $0.top == $0.superview!.top + 2
             $0.bottom == $0.superview!.bottom - 2
             $0.left == $0.superview!.left + 2
@@ -61,23 +61,11 @@ private extension AnswerCell {
     
     func setStyle() {
         self.backgroundColor = UIColor.white
-        answerLbl.textColor = UIColor.black
-        answerLbl.backgroundColor = UIColor.white
-        answerLbl.font = UIFont(name: "HelveticaNeue", size: 25)
-        answerLbl.numberOfLines = 10
-        answerLbl.lineBreakMode = NSLineBreakMode.byWordWrapping
-        answerLbl.sizeToFit()
+        questionLbl.textColor = UIColor.black
+        questionLbl.backgroundColor = UIColor.white
+        questionLbl.font = UIFont(name: "HelveticaNeue", size: 25)
+        questionLbl.numberOfLines = 5
+        questionLbl.lineBreakMode = NSLineBreakMode.byWordWrapping
+        questionLbl.sizeToFit()
     }
 }
-
-/*extension AnswerCell {
-    
-    func updateAnswerCell(with options: [String]){
-        let letters: [String] = ["a)", "b)", "c)", "d)"]
-        for i in 0..<options.count {
-            answerLbl.text = "\(letters[i]): \(options[i])"
-        }
-     }
-    
-}*/
-

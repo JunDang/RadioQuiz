@@ -23,7 +23,8 @@ class CoverPageViewController: UIViewController {
         style()
         render()
         navigationController?.navigationBar.tintColor = UIColor.white
-     }
+        QuizDB.instance
+   }
    
     
     override func didReceiveMemoryWarning() {
@@ -36,7 +37,15 @@ class CoverPageViewController: UIViewController {
     }
     
     @objc func bButtonPressed(sender: UIButton) {
+        let random_100_ids_Result:Result<[String], Error> = QuizDB.instance.Query_100_Random_IDs("basic")
         let quizTableViewController = QuizTableViewController()
+        switch random_100_ids_Result {
+            case .Success(let random_100_ids):
+               quizTableViewController.random_100_ids = random_100_ids
+            case .Failure(let error):
+                print("display the error")
+            }
+        
         navigationController?.pushViewController(quizTableViewController, animated: true)
     }
     
@@ -78,7 +87,7 @@ extension CoverPageViewController {
         self.view.backgroundColor = UIColor.lightBlue
             
         titleLbl.backgroundColor = UIColor.clear
-        titleLbl.font = UIFont(name: "HelveticaNeue-Bold", size: 26)
+        titleLbl.font = UIFont(name: "HelveticaNeue-Bold", size: 30)
         titleLbl.textColor = UIColor.white
         titleLbl.textAlignment = .center
         titleLbl.numberOfLines = 0

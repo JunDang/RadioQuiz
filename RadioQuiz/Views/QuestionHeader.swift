@@ -44,9 +44,10 @@ private extension QuestionHeader {
     
     func layoutView() {
         constrain(questionLbl) {
-            $0.centerY == $0.superview!.centerY
             $0.left == $0.superview!.left + 2
             $0.right == $0.superview!.right - 2
+            //$0.top == $0.superview!.top + 2
+            //$0.bottom == $0.superview!.bottom - 2
         }
     }
     
@@ -54,15 +55,17 @@ private extension QuestionHeader {
         self.contentView.backgroundColor = UIColor.lighterGray
         questionLbl.textColor = UIColor.black
         questionLbl.backgroundColor = UIColor.lighterGray
-        questionLbl.font = UIFont(name: "HelveticaNeue-Bold", size: 30)
+        questionLbl.font = UIFont(name: "HelveticaNeue-Bold", size: 26)
+        questionLbl.numberOfLines = 5
+        questionLbl.lineBreakMode = NSLineBreakMode.byWordWrapping
         questionLbl.sizeToFit()
     }
 }
 
 extension QuestionHeader {
     
-    func updateQuestionHeaderCell(){
-        questionLbl.text = "what is conductivity?"
+    func updateQuestionHeaderCell(with questionModel: QuestionModel){
+        questionLbl.text = questionModel.question
     }
     
 }

@@ -16,7 +16,10 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
     private let tableView: UITableView = UITableView(frame: CGRect.zero)
     private let scoreButton = UIButton(frame: CGRect.zero)
     private let timeButton = UIButton(frame: CGRect.zero)
-    private let nextQuestionButton = UIButton(frame: CGRect.zero)
+    @objc private let nextQuestionButton = UIButton(frame: CGRect.zero)
+    var random_100_ids:[String] = [""]
+    var questionIndex = 1
+    var questionModel: QuestionModel?
    
     
     override func viewDidLoad() {
@@ -29,10 +32,12 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
         self.view.addSubview(tableView)
         
         tableView.register(AnswerCell.self, forCellReuseIdentifier: "AnswerCell")
-        tableView.register(QuestionHeader.self, forHeaderFooterViewReuseIdentifier: "QuestionHeader")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "emptyCell")
+        //tableView.register(QuestionHeader.self, forHeaderFooterViewReuseIdentifier: "QuestionHeader")
         tableView.separatorColor = UIColor(red: (224/255.0), green: (224/255.0), blue: (224/255.0), alpha: 1.0)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.sectionHeaderHeight = 50
+        //tableView.sectionHeaderHeight = 50
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 99
         tableView.allowsMultipleSelection = true
         tableView.tableFooterView = UIView()
@@ -40,8 +45,16 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
         layoutView()
         style()
         render()
+        let firstQuestionResult: Result<QuestionModel, Error> =  QuizDB.instance.queryQuestion(random_100_ids[0])
+        switch firstQuestionResult {
+            case .Success(let questionModel):
+                self.questionModel = questionModel
+            case .Failure(let error):
+                print("display the error")
+        }
           
-        navigationItem.title = "Question 1/100"
+         navigationItem.title = "Question " + "\(1)" + "/100"
+        
    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -49,25 +62,48 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: AnswerCell = tableView.dequeueReusableCell(withIdentifier: "AnswerCell", for: indexPath) as! AnswerCell
-        cell.updateAnswerCell()
         
-        return cell
+        if indexPath.row == 0 {
+            let cell: AnswerCell = tableView.dequeueReusableCell(withIdentifier: "AnswerCell", for: indexPath) as! AnswerCell
+            cell.answerLbl.font = UIFont(name: "HelveticaNeue-Bold", size: 26)
+            if let questionModel = questionModel {
+                cell.answerLbl.text = questionModel.question
+            }
+            return cell
+        } else if indexPath.row == 1 {
+            let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "emptyCell", for: indexPath)
+            return cell
+        } else {
+          let cell: AnswerCell = tableView.dequeueReusableCell(withIdentifier: "AnswerCell", for: indexPath) as! AnswerCell
+           var options: [(String, String)] = [("", "")]
+           if let questionModel = questionModel {
+               options = [("a", questionModel.choiceA), ("b", questionModel.choiceB), ("c", questionModel.choiceC), ("d", questionModel.choiceD)]
+        }
+           cell.answerLbl.text = options[indexPath.row - 2].0 + ". " + options[indexPath.row - 2].1
+           return cell
+        }
     }
-  
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+ 
+  /*  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "QuestionHeader") as! QuestionHeader
-         headerCell.updateQuestionHeaderCell()
-         return headerCell
-    }
+        if let questionModel = questionModel {
+            headerCell.updateQuestionHeaderCell(with: questionModel)
+        }
+        return headerCell
+    }*/
+  /*  override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if let header = tableView.tableHeaderView {
+            let newSize = header.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            header.frame.size.height = newSize.height
+        }
+    }*/
     
-   
-
 }
 
 extension QuizTableViewController {
@@ -82,7 +118,7 @@ extension QuizTableViewController {
     
     func layoutView() {
         constrain(tableView) {
-            $0.bottom == $0.superview!.bottom - 500
+            $0.bottom == $0.superview!.bottom
             $0.left == $0.superview!.left
             $0.right == $0.superview!.right
             $0.top == $0.superview!.top
@@ -140,8 +176,23 @@ extension QuizTableViewController {
         timeButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
         nextQuestionButton.setTitle("> Next", for: UIControl.State.normal)
         //nextQuestionButton.addTarget(self, action: #selector(QuizTableViewController.bButtonPressed), for: .touchUpInside)
-        nextQuestionButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        
+        nextQuestionButton.addTarget(self, action: #selector(QuizTableViewController.nextQuestionButtonPressed), for: .touchUpInside)
+   
     }
-    
+      @objc func nextQuestionButtonPressed(sender: UIButton) {
+         let questionResult: Result<QuestionModel, Error> =  QuizDB.instance.queryQuestion(random_100_ids[questionIndex])
+         switch questionResult {
+            case .Success(let questionModel):
+                self.questionModel = questionModel
+                tableView.reloadData()
+            case .Failure(let error):
+                 print("display the error")
+         }
+         questionIndex += 1
+         navigationItem.title = "Question " + "\(questionIndex)" + "/100"
+         if questionIndex >= 100 {
+             nextQuestionButton.isEnabled = false
+             print("you have finished 100 random questions, for restart please go back to the main page")
+         }
+       }
 }

@@ -4,4 +4,6 @@ use_frameworks!
 target 'RadioQuiz' do
 
     pod 'Cartography'
+    pod 'SQLite.swift', '~> 0.11.5'
+
 end
