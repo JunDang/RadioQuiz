@@ -9,14 +9,10 @@
 
 import UIKit
 import Cartography
-import SwiftMessages
-
 
 class QuizTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private let tableView: UITableView = UITableView(frame: CGRect.zero)
-    private let restartButton = UIButton(frame: CGRect.zero)
-    private let timeButton = UIButton(frame: CGRect.zero)
     private let nextQuestionButton = UIButton(frame: CGRect.zero)
     var questionTypes: String = ""
     private var random_100_ids:[String] = [""]
@@ -35,8 +31,6 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
         self.view.addSubview(tableView)
         
         tableView.register(AnswerCell.self, forCellReuseIdentifier: "answerCell")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "emptyCell")
-        tableView.register(QuestionCell.self, forCellReuseIdentifier: "questionCell")
         tableView.separatorColor = UIColor(red: (224/255.0), green: (224/255.0), blue: (224/255.0), alpha: 1.0)
         tableView.rowHeight = UITableView.automaticDimension
         //tableView.sectionHeaderHeight = 50
@@ -49,24 +43,16 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
         style()
         render()
         random_100_ids = get_100_Random_ids(questionTypes)
-        loadQuestion(random_100_ids[questionIndex])
+        self.questionModel = loadQuestion(random_100_ids[questionIndex])
         navigationItem.title = "Question " + "\(1)" + "/100"
-        if questionTypes == "basic" {
-            disPlayInfo("Basic", message: "100 random basic level questions")
-        } else if questionTypes == "advanced" {
-            disPlayInfo("Advanced", message: "100 random advanced level questions")
-        } else {
-            disPlayInfo("Quiz Level not Choosed", message: "Please choose from Basic or Advanced")
-        }
-       
-   }
+     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,15 +60,12 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
         if indexPath.row == 0 {
             let cell: AnswerCell = tableView.dequeueReusableCell(withIdentifier: "answerCell", for: indexPath) as! AnswerCell
             cell.answerLbl.text = questionModel.question
-                cell.answerLbl.font = UIFont(name: "HelveticaNeue-Bold", size: 22)
-            return cell
-        } else if indexPath.row == 1 {
-            let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "emptyCell", for: indexPath)
+            cell.answerLbl.font = UIFont(name: "HelveticaNeue-Bold", size: 22)
             return cell
         } else {
            let cell: AnswerCell = tableView.dequeueReusableCell(withIdentifier: "answerCell", for: indexPath) as! AnswerCell
            let options: [(String, String)] = [("a", questionModel.choiceA), ("b", questionModel.choiceB), ("c", questionModel.choiceC), ("d", questionModel.choiceD)]
-           cell.answerLbl.text = options[indexPath.row - 2].0 + ". " + options[indexPath.row - 2].1
+           cell.answerLbl.text = options[indexPath.row - 1].0 + ". " + options[indexPath.row - 1].1
            return cell
         }
     }
@@ -91,133 +74,91 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
         var chooseAnswer: String = ""
         if indexPath.row == 0 {
             disPlayInfo("Stop", message: "You cannot choose question itself")
-        } else if indexPath.row == 2 {
+        } else if indexPath.row == 1 {
             chooseAnswer = "A"
-        } else if indexPath.row == 3 {
+        } else if indexPath.row == 2 {
             chooseAnswer = "B"
-        } else if indexPath.row == 4 {
+        } else if indexPath.row == 3 {
             chooseAnswer = "C"
         } else {
             chooseAnswer = "D"
         }
         if questionModel.answer == chooseAnswer {
+            markImageView.image = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.markImageView.image = UIImage(named: "redcheckmark50")
+            }
             markImageView.image = UIImage(named: "redcheckmark50")
             scores += 1
         } else {
-            markImageView.image = UIImage(named: "redcrossmark50")
+            markImageView.image = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.markImageView.image = UIImage(named: "redcrossmark50")
+            }
+            scores += 0
         }
-        
-    
     }
-  /*  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "QuestionHeader") as! QuestionHeader
-        if let questionModel = questionModel {
-            headerCell.updateQuestionHeaderCell(with: questionModel)
-        }
-        return headerCell
-    }*/
-  /*  override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        if let header = tableView.tableHeaderView {
-            let newSize = header.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-            header.frame.size.height = newSize.height
-        }
-    }*/
-    
 }
 
 extension QuizTableViewController {
     func setup() {
         tableView.addSubview(markImageView)
         view.addSubview(tableView)
-        view.addSubview(restartButton)
-        view.addSubview(timeButton)
         view.addSubview(nextQuestionButton)
-        let timeButtonItem = UIBarButtonItem(customView: timeButton)
-        navigationItem.rightBarButtonItem = timeButtonItem
     }
     
     func layoutView() {
-        constrain(tableView) {
-            $0.bottom == $0.superview!.bottom
+        constrain(nextQuestionButton) {
+            $0.bottom == $0.superview!.bottom - 20
+            $0.left == $0.superview!.left + 30
+            $0.right == $0.superview!.right - 30
+            $0.height == 50
+            $0.centerX == $0.superview!.centerX
+        }
+        constrain(tableView, nextQuestionButton) {
+            $0.bottom == $1.top - 5
             $0.left == $0.superview!.left
             $0.right == $0.superview!.right
             $0.top == $0.superview!.top
         }
         constrain(markImageView) {
             $0.centerX == $0.superview!.centerX
-            $0.centerY == $0.superview!.centerY
+            $0.centerY == $0.superview!.centerY - 100
         }
-        constrain(restartButton) {
-            $0.bottom == $0.superview!.bottom - 30
-            //$0.left == $0.superview!.left + 30
-            //$0.right == $0.superview!.right - 30
-            $0.width == 160
-            $0.height == 60
-            $0.centerX == $0.superview!.centerX
-        }
-        constrain(nextQuestionButton, restartButton) {
-            $0.bottom == $1.top - 5
-            //$0.left == $0.superview!.left + 30
-            //$0.right == $0.superview!.right - 30
-            $0.width == 160
-            $0.height == 60
-            $0.centerX == $0.superview!.centerX
-        }
+     
     }
     
     func style() {
-        
-        restartButton.layer.borderColor = UIColor.lightBlue.cgColor
-        //scoreLbl.backgroundColor = UIColor.lightBlue
-        restartButton.layer.borderWidth = 3
-        restartButton.layer.cornerRadius = 20
-        restartButton.backgroundColor = UIColor.lightBlue
-        restartButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-        restartButton.sizeToFit()
         
         nextQuestionButton.layer.borderColor = UIColor.lightBlue.cgColor
         nextQuestionButton.backgroundColor = UIColor.lightBlue
         nextQuestionButton.layer.borderWidth = 3
         nextQuestionButton.layer.cornerRadius = 20
-        nextQuestionButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        nextQuestionButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 23)
         nextQuestionButton.sizeToFit()
-        
-        timeButton.layer.borderColor = UIColor.lightBlue.cgColor
-        //nextQuestionButton.backgroundColor = UIColor.lightBlue
-        //nextQuestionButton.layer.borderWidth = 1
-        //nextQuestionButton.layer.cornerRadius = 20
-        timeButton.titleLabel!.font = UIFont(name: "HelveticaNeue", size: 18)
     }
     
     func render() {
         nextQuestionButton.setTitle("Next Question", for: UIControl.State.normal)
         nextQuestionButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
-        restartButton.setTitle("Restart", for: UIControl.State.normal)
-        restartButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
-        timeButton.setTitle("100 min", for: UIControl.State.normal)
-        restartButton.addTarget(self, action: #selector(QuizTableViewController.restartButtonPressed), for: .touchUpInside)
         nextQuestionButton.addTarget(self, action: #selector(QuizTableViewController.nextQuestionButtonPressed), for: .touchUpInside)
-   
     }
       @objc func nextQuestionButtonPressed(sender: UIButton) {
         markImageView.image = nil
         questionIndex += 1
-        loadQuestion(random_100_ids[questionIndex])
-        
-         navigationItem.title = "Question " + "\(questionIndex+1)" + "/100"
+        self.questionModel = loadQuestion(random_100_ids[questionIndex])
+        navigationItem.title = "Question " + "\(questionIndex+1)" + "/100"
          if questionIndex >= 99 {
              nextQuestionButton.isEnabled = false
-            displayMessage("your score is \(scores)", userMessage: "Finished 100 questions", handler: nil)
-         }
-        
+            displayMessage("your score is \(scores)", userMessage: "You have finished the exam", actionTitle: "Restart", handler: {(alert: UIAlertAction!) in
+                    self.random_100_ids = self.get_100_Random_ids(self.questionTypes)
+                    self.questionIndex = 0
+                    self.questionModel = self.loadQuestion(self.random_100_ids[self.questionIndex])
+                    self.navigationItem.title = "Question " + "\(1)" + "/100"
+                    self.nextQuestionButton.isEnabled = true
+               })
+            }        
        }
-    @objc func restartButtonPressed(sender: UIButton) {
-        random_100_ids = get_100_Random_ids(questionTypes)
-        loadQuestion(random_100_ids[questionIndex])
-        navigationItem.title = "Question " + "\(1)" + "/100"
-    }
     
     func get_100_Random_ids(_ questionTypes: String) -> [String] {
         let random_100_ids_Result:Result<[String], Error> = QuizDB.instance.Query_100_Random_IDs(questionTypes)

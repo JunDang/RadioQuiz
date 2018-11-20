@@ -31,10 +31,10 @@ public extension UIViewController {
         SwiftMessages.show(view: error)
     }
     
-    func displayMessage(_ title: String, userMessage: String, handler: ((UIAlertAction) -> Void)?) {
+    func displayMessage(_ title: String, userMessage: String, actionTitle: String, handler: ((UIAlertAction) -> Void)?) {
         let alert = UIAlertController(title: title, message: userMessage, preferredStyle: .alert)
         let action = UIAlertAction(
-            title: "OK",
+            title: actionTitle,
             style: .default,
             handler: handler)
         alert.addAction(action)

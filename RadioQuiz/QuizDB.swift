@@ -32,45 +32,41 @@ class QuizDB {
     private let choiceB = Expression<String>("option_b")
     private let choiceC = Expression<String>("option_c")
     private let choiceD = Expression<String>("option_d")
-   
+    
     private init() {
         let path = NSSearchPathForDirectoriesInDomains(
             .documentDirectory, .userDomainMask, true
             ).first!
         do {
             db = try Connection("\(path)/ham.sqlite3")
-            //print("db: \(db)")
         } catch {
             db = nil
             print ("Unable to open database")
         }
-        
-       print(Query_100_Random_IDs("advanced"))
-       //print(queryQuestion("A-005-007-007"))
     }
     func Query_100_Random_IDs(_ types: String) -> Result<[String], Error> {
         
         var random_100_IDs = [String]()
         if types == "basic" {
-           do {
-               let basiceQuestions = questions.filter(id.like("B%"))
-               let basicIDs = try db!.prepare(basiceQuestions).map{$0[id]}
-               random_100_IDs = basicIDs.sample(100)
-           } catch {
-               return Result<[String], Error>.Failure(QueryError.Cannot_Select_From_SQLite)
-           }
+            do {
+                let basiceQuestions = questions.filter(id.like("B%"))
+                let basicIDs = try db!.prepare(basiceQuestions).map{$0[id]}
+                random_100_IDs = basicIDs.sample(100)
+            } catch {
+                return Result<[String], Error>.Failure(QueryError.Cannot_Select_From_SQLite)
+            }
         } else if types == "advanced" {
             do {
-               let advancedQuestions = questions.filter(id.like("A%"))
-               let advancedIDs = try db!.prepare(advancedQuestions).map{$0[id]}
-               random_100_IDs = advancedIDs.sample(100)
+                let advancedQuestions = questions.filter(id.like("A%"))
+                let advancedIDs = try db!.prepare(advancedQuestions).map{$0[id]}
+                random_100_IDs = advancedIDs.sample(100)
             } catch {
-               return Result<[String], Error>.Failure(QueryError.Cannot_Select_From_SQLite)
+                return Result<[String], Error>.Failure(QueryError.Cannot_Select_From_SQLite)
             }
-         } else {
-             return Result<[String], Error>.Failure(QueryError.Data_Not_Exist)
-         }
-         return Result<[String], Error>.Success(random_100_IDs)
+        } else {
+            return Result<[String], Error>.Failure(QueryError.Data_Not_Exist)
+        }
+        return Result<[String], Error>.Success(random_100_IDs)
     }
     
     func queryQuestion(_ questionID: String) -> Result<QuestionModel, Error> {
@@ -81,6 +77,6 @@ class QuizDB {
         } catch {
             return Result<QuestionModel, Error>.Failure(QueryError.Cannot_Select_From_SQLite)
         }
-       return Result<QuestionModel, Error>.Success(question)
-   }
+        return Result<QuestionModel, Error>.Success(question)
+    }
 }
