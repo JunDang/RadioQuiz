@@ -37,7 +37,6 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.register(AnswerCell.self, forCellReuseIdentifier: "answerCell")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "emptyCell")
         tableView.register(QuestionCell.self, forCellReuseIdentifier: "questionCell")
-        //tableView.register(QuestionHeader.self, forHeaderFooterViewReuseIdentifier: "QuestionHeader")
         tableView.separatorColor = UIColor(red: (224/255.0), green: (224/255.0), blue: (224/255.0), alpha: 1.0)
         tableView.rowHeight = UITableView.automaticDimension
         //tableView.sectionHeaderHeight = 50
@@ -166,14 +165,7 @@ extension QuizTableViewController {
             $0.height == 60
             $0.centerX == $0.superview!.centerX
         }
-      /*  constrain(timeButton/*, timeButton*/) {
-            //$0.top == $1.bottom + 5
-            //$0.left == $0.superview!.left + 30
-            //$0.right == $0.superview!.right - 30
-            //$0.width == 100
-           // $0.height == 60
-        }*/
-   }
+    }
     
     func style() {
         

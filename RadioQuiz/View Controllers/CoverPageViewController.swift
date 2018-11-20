@@ -23,7 +23,7 @@ class CoverPageViewController: UIViewController {
         style()
         render()
         navigationController?.navigationBar.tintColor = UIColor.white
-       // QuizDB.instance
+        QuizDB.instance
    }
    
     

@@ -39,13 +39,14 @@ class QuizDB {
             ).first!
         do {
             db = try Connection("\(path)/ham.sqlite3")
+            //print("db: \(db)")
         } catch {
             db = nil
             print ("Unable to open database")
         }
         
-       //print(Query_100_Random_IDs("advanced"))
-       print(queryQuestion("A-005-007-007"))
+       print(Query_100_Random_IDs("advanced"))
+       //print(queryQuestion("A-005-007-007"))
     }
     func Query_100_Random_IDs(_ types: String) -> Result<[String], Error> {
         

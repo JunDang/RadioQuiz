@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         mainWindow.rootViewController = viewController
         mainWindow.makeKeyAndVisible()
         window = mainWindow
+        copyDatabaseIfNeeded()
       
         return true
     }
@@ -50,6 +51,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func copyDatabaseIfNeeded() {
+        // Move database file from bundle to documents folder
+        
+        let fileManager = FileManager.default
+        
+        guard let documentsUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        
+        let finalDatabaseURL = documentsUrl.appendingPathComponent("ham.sqlite3")
+        
+        do {
+            if !fileManager.fileExists(atPath: finalDatabaseURL.path) {
+                print("DB does not exist in documents folder")
+                
+                if let dbFilePath = Bundle.main.path(forResource: "ham", ofType: "sqlite3") {
+                    try fileManager.copyItem(atPath: dbFilePath, toPath: finalDatabaseURL.path)
+                } else {
+                    print("Uh oh - ham.sqlite3 is not in the app bundle")
+                }
+            } else {
+                print("Database file found at path: \(finalDatabaseURL.path)")
+            }
+        } catch {
+            print("Unable to copy ham.sqlite3: \(error)")
+        }
     }
 
 

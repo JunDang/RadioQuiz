@@ -28,9 +28,6 @@ public extension UIViewController {
         error.configureTheme(.error)
         error.configureContent(title: "Error", body: errorMessage)
         error.button?.setTitle("Stop", for: .normal)
-        /*var infoConfig = SwiftMessages.defaultConfig
-        infoConfig.presentationStyle = .center
-        infoConfig.duration = .seconds(seconds: 2)*/
         SwiftMessages.show(view: error)
     }
     
