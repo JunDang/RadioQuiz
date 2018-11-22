@@ -33,11 +33,11 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.register(AnswerCell.self, forCellReuseIdentifier: "answerCell")
         tableView.separatorColor = UIColor(red: (224/255.0), green: (224/255.0), blue: (224/255.0), alpha: 1.0)
         tableView.rowHeight = UITableView.automaticDimension
-        //tableView.sectionHeaderHeight = 50
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 99
         tableView.allowsMultipleSelection = false
         tableView.tableFooterView = UIView()
+        
         setup()
         layoutView()
         style()
@@ -73,7 +73,7 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var chooseAnswer: String = ""
         if indexPath.row == 0 {
-            disPlayInfo("Stop", message: "You cannot choose question itself")
+            disPlayInfo("Stop", message: "You cannot choose the question itself")
         } else if indexPath.row == 1 {
             chooseAnswer = "A"
         } else if indexPath.row == 2 {
@@ -86,14 +86,13 @@ class QuizTableViewController: UIViewController, UITableViewDelegate, UITableVie
         if questionModel.answer == chooseAnswer {
             markImageView.image = nil
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.markImageView.image = UIImage(named: "redcheckmark50")
+                self.markImageView.image = UIImage(named: "greencheckmark")
             }
-            markImageView.image = UIImage(named: "redcheckmark50")
             scores += 1
         } else {
             markImageView.image = nil
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.markImageView.image = UIImage(named: "redcrossmark50")
+                self.markImageView.image = UIImage(named: "redcrossmark")
             }
             scores += 0
         }
@@ -125,7 +124,6 @@ extension QuizTableViewController {
             $0.centerX == $0.superview!.centerX
             $0.centerY == $0.superview!.centerY - 100
         }
-     
     }
     
     func style() {
@@ -143,22 +141,23 @@ extension QuizTableViewController {
         nextQuestionButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
         nextQuestionButton.addTarget(self, action: #selector(QuizTableViewController.nextQuestionButtonPressed), for: .touchUpInside)
     }
-      @objc func nextQuestionButtonPressed(sender: UIButton) {
+    @objc func nextQuestionButtonPressed(sender: UIButton) {
         markImageView.image = nil
         questionIndex += 1
-        self.questionModel = loadQuestion(random_100_ids[questionIndex])
-        navigationItem.title = "Question " + "\(questionIndex+1)" + "/100"
-         if questionIndex >= 99 {
-             nextQuestionButton.isEnabled = false
-            displayMessage("your score is \(scores)", userMessage: "You have finished the exam", actionTitle: "Restart", handler: {(alert: UIAlertAction!) in
-                    self.random_100_ids = self.get_100_Random_ids(self.questionTypes)
-                    self.questionIndex = 0
-                    self.questionModel = self.loadQuestion(self.random_100_ids[self.questionIndex])
-                    self.navigationItem.title = "Question " + "\(1)" + "/100"
-                    self.nextQuestionButton.isEnabled = true
-               })
-            }        
-       }
+        if questionIndex < 100 {
+            self.questionModel = loadQuestion(random_100_ids[questionIndex])
+            navigationItem.title = "Question " + "\(questionIndex + 1)" + "/100"
+        } else {
+            nextQuestionButton.isEnabled = false
+            displayMessage("Your score is \(scores)", userMessage: "Please load another 100 random questions.", actionTitle: "Restart", handler: {(alert: UIAlertAction!) in
+                self.random_100_ids = self.get_100_Random_ids(self.questionTypes)
+                self.questionIndex = 0
+                self.questionModel = self.loadQuestion(self.random_100_ids[self.questionIndex])
+                self.navigationItem.title = "Question " + "\(1)" + "/100"
+                self.nextQuestionButton.isEnabled = true
+            })
+        }
+    }
     
     func get_100_Random_ids(_ questionTypes: String) -> [String] {
         let random_100_ids_Result:Result<[String], Error> = QuizDB.instance.Query_100_Random_IDs(questionTypes)
@@ -169,8 +168,8 @@ extension QuizTableViewController {
             disPlayError("\(error)")
         }
         return random_100_ids
-        
     }
+    
     func loadQuestion(_ id: String) -> QuestionModel {
         let questionResult: Result<QuestionModel, Error> =  QuizDB.instance.queryQuestion(id)
         switch questionResult {
@@ -182,5 +181,4 @@ extension QuizTableViewController {
         }
         return questionModel
     }
-   
-}
+ }

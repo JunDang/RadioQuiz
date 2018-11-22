@@ -17,18 +17,16 @@ class CoverPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         setup()
         layoutView()
         style()
         render()
         navigationController?.navigationBar.tintColor = UIColor.white
-        QuizDB.instance
-        let navigationBar = self.navigationController?.navigationBar
-        navigationBar?.topItem?.title = "Ham Exam"
+        let backItem = UIBarButtonItem()
+        backItem.title = "Main Page"
+        navigationItem.backBarButtonItem = backItem
      }
-   
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -62,6 +60,8 @@ extension CoverPageViewController {
         constrain(titleLbl) {
             $0.top == $0.superview!.top + 150
             $0.centerX == $0.superview!.centerX
+            $0.left == $0.superview!.left + 2
+            $0.right == $0.superview!.right - 2
         }
         constrain(aButton) {
             $0.centerX == $0.superview!.centerX
@@ -85,10 +85,10 @@ extension CoverPageViewController {
         titleLbl.font = UIFont(name: "HelveticaNeue-Bold", size: 35)
         titleLbl.textColor = UIColor.white
         titleLbl.textAlignment = .center
-        titleLbl.numberOfLines = 0
+        titleLbl.numberOfLines = 3
         titleLbl.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLbl.sizeToFit()
-        
+              
         bButton.layer.borderColor = UIColor.white.cgColor
         bButton.layer.borderWidth = 1
         bButton.layer.cornerRadius = 5
@@ -105,9 +105,7 @@ extension CoverPageViewController {
         aButton.addTarget(self, action: #selector(CoverPageViewController.aButtonPressed), for: .touchUpInside)
         bButton.setTitle("Basic", for: UIControl.State.normal)
         bButton.addTarget(self, action: #selector(CoverPageViewController.bButtonPressed), for: .touchUpInside)
-        titleLbl.text = "Ham Radio Exam"
-        
-        
+        titleLbl.text = "Canadian Amateur Radio Exam"
     }
 }
 
