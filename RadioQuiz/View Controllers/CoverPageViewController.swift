@@ -36,14 +36,16 @@ class CoverPageViewController: UIViewController {
         return .lightContent
     }
     
+    let quizTableViewController: QuizTableViewController = {
+        return QuizTableViewController()
+    }()
+ 
     @objc func bButtonPressed(sender: UIButton) {
-        let quizTableViewController = QuizTableViewController()
         quizTableViewController.questionTypes = "basic"
         navigationController?.pushViewController(quizTableViewController, animated: true)
     }
     
     @objc func aButtonPressed(sender: UIButton) {
-        let quizTableViewController = QuizTableViewController()
         quizTableViewController.questionTypes = "advanced"
         navigationController?.pushViewController(quizTableViewController, animated: true)
     }
