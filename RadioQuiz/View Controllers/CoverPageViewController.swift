@@ -36,7 +36,7 @@ class CoverPageViewController: UIViewController {
         return .lightContent
     }
     
-    let quizTableViewController: QuizTableViewController = {
+    lazy var quizTableViewController: QuizTableViewController = {
         return QuizTableViewController()
     }()
  
